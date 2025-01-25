@@ -13,19 +13,13 @@ public class CarController {
 
     @Autowired
     private CarRepository repository;
-    
+
     @GetMapping("/manager")
     public List<Car> managerView()
     {
         List<Car> cars = repository.findAll();
         cars.sort(Comparator.comparing(Car::getName));
         return cars;
-    }
-
-    @GetMapping("/create")
-    public Car createView()
-    {
-        return new Car();
     }
 
     @PostMapping("/create_car")
