@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Car</title>
+    <style>
+        body
+        {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: lightgray;
+            font-family: "Times New Roman", Times, serif;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            width: 300px;
+            margin-top: 40px;
+        }
+
+
+        form
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        input
+        {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="form_box">
+        <div class="container">
+            <form id="create-car-form">
+                <h2 class="centered_strings">Add a new car</h2>
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="text" id="engine" placeholder="Engine" required>
+                <input type="text" id="color" placeholder="Color" required>
+                <input type="number" id="price_per_day" placeholder="Price per day" step="0.01" required>
+                <button type="submit" class="primary">Create</button>
+            </form>
+            <a href="manager.html"><button class="warning">Cancel</button></a>
+        </div>
+    
+    </div>
+
+    <script>
+        document.getElementById('create-car-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const car = {
+                name: document.getElementById('name').value,
+                engine: document.getElementById('engine').value,
+                color: document.getElementById('color').value,
+                price_per_day: parseFloat(document.getElementById('price_per_day').value),
+            };
+
+            const response = await fetch('create_car', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(car),
+            });
+
+            const message = await response.text();
+            alert(message);
+            window.location.href = 'manager.html';
+        });
+    </script>
+</body>
+</html>

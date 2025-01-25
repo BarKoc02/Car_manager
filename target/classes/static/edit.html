@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Car</title>
+    <style>
+        body
+        {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: lightgray;
+            font-family: "Times New Roman", Times, serif;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            width: 300px;
+            margin-top: 40px;
+        }
+
+        form
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        input
+        {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="edit-car-form">
+            <h2 class="centered_strings">Edit Car</h2>
+            <input type="hidden" id="car-id">
+            <input type="text" id="car-name" placeholder="Name">
+            <input type="text" id="car-engine" placeholder="Engine">
+            <input type="text" id="car-color" placeholder="Color">
+            <input type="number" id="car-price" step="0.01" placeholder="Price per day">
+            <button type="submit" class="primary">Accept</button>
+        </form>
+        <a href="manager.html"><button class="warning">Cancel</button></a>
+    </div>
+
+    <script>
+        async function fetchCarDetails()
+        {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id)
+            {
+                try
+                {
+                    const response = await fetch(`edit/${id}`);
+                    const car = await response.json();
+
+                    if (car)
+                    {
+                        document.getElementById('car-id').value = car.id;
+                        document.getElementById('car-name').value = car.name;
+                        document.getElementById('car-engine').value = car.engine;
+                        document.getElementById('car-color').value = car.color;
+                        document.getElementById('car-price').value = car.price_per_day;
+                    }
+                    else
+                    {
+                        alert("Car not found.");
+                    }
+                } 
+                catch (error) 
+                {
+                    console.error("Error fetching car details:", error);
+                    alert("Error fetching car details.");
+                }
+            }
+        }
+
+        async function saveCar(event)
+        {
+            event.preventDefault();
+
+            const id = document.getElementById('car-id').value;
+            const name = document.getElementById('car-name').value;
+            const engine = document.getElementById('car-engine').value;
+            const color = document.getElementById('car-color').value;
+            const price = document.getElementById('car-price').value;
+
+            const updatedCar = { id, name, engine, color, price_per_day: price };
+
+            try
+            {
+                const response = await fetch('edit_car',
+                {
+                    method: 'PUT',
+                    headers:
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedCar)
+                });
+
+                const message = await response.text();
+                alert(message);
+                window.location.href = 'manager.html';
+            }
+            catch (error)
+            {
+                console.error("Error saving car details:", error);
+                alert("Error saving car details.");
+            }
+        }
+
+        document.getElementById('edit-car-form').addEventListener('submit', saveCar);
+
+        fetchCarDetails();
+    </script>
+</body>
+</html>

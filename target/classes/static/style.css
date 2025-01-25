@@ -1,0 +1,121 @@
+body
+{
+    background-color: lightgray;
+    font-family: " Times New Roman", Times, serif;
+}
+
+.centered_strings
+{
+    text-align: center;
+}
+
+table
+{
+    border: 3px solid #000000;
+    text-align: center;
+}
+
+tr
+{
+    background-color: #FFFFFF;
+    font-size: 24px;
+}
+
+tr:nth-child(even)
+{
+    background-color: #D6EEEE;
+}
+
+button
+{
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+tr:nth-child(even) button 
+{
+    background-color: #D6EEEE;
+}
+
+tr:nth-child(even) button:hover
+{
+    color: #D6EEEE;
+}
+
+.primary
+{
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #04AA6D
+}
+
+.primary:hover
+{
+    background-color: #04AA6D;
+    color: #FFFFFF;
+}
+
+.secondary
+{
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #2C62DE
+}
+
+.secondary:hover
+{
+    background-color: #2C62DE;
+    color: #FFFFFF;
+}
+
+.new
+{
+    background-color: lightgray;
+    color: #000000;
+    border: 2px solid #04AA6D;
+}
+
+.new:hover
+{
+    background-color: #04AA6D;
+    color: lightgray;
+}
+
+.warning
+{
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px solid #F44336;
+}
+
+.warning:hover
+{
+    background-color: #F44336;
+    color: #FFFFFF;
+}
+
+
+input
+{
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.form_box
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    margin: 0;
+}
